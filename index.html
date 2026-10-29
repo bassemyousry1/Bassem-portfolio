@@ -3536,6 +3536,7 @@ section > .wrap{
             <button class="campaign-v21-tab" data-campaign-target="hadara" role="tab" aria-selected="false">Al Hadara Center</button>
             <button class="campaign-v21-tab" data-campaign-target="exige" role="tab" aria-selected="false">Exige Auto</button>
             <button class="campaign-v21-tab" data-campaign-target="zafran" role="tab" aria-selected="false">Zafran Market</button>
+            <button class="campaign-v21-tab" data-campaign-target="realestate" role="tab" aria-selected="false">Real Estate Lead Generation</button>
           </div>
           <button class="campaign-tab-arrow next" id="campaignTabNext" type="button" aria-label="Next campaign">→</button>
         </div>
@@ -3543,6 +3544,37 @@ section > .wrap{
     </div>
 
     <div class="campaign-v21-stack reveal">
+      <!-- Real Estate: verified form-lead rows, 29 Jan–29 Oct 2026 -->
+      <article class="campaign-v21-case" data-campaign="realestate">
+        <div class="campaign-v21-copy">
+          <div class="campaign-v21-topline">
+            <div><div class="campaign-v21-index">12 / Real Estate Lead Generation</div><h3>Real Estate Lead Generation</h3><p class="campaign-v21-sub">Meta Ads · Lead Forms · EGP · 29 Jan–29 Oct 2026</p></div>
+            <div class="campaign-v21-badge">21 Form-Lead Campaigns</div>
+          </div>
+          <div class="campaign-v21-triad">
+            <div><span>Objective</span><p>Generate property inquiries through lead forms for Bait Al Watan, North Rehab and ZAHYA campaigns.</p></div>
+            <div><span>Campaign scope</span><p>The export also includes hiring messages, visits, awareness and custom conversions, measured separately from form leads.</p></div>
+            <div><span>Measurement</span><p>Include only Leads (form) rows. Weighted CPL equals their total spend divided by their total form leads.</p></div>
+          </div>
+          <div class="campaign-v21-results-label">Reported Form-Lead Performance</div>
+          <div class="campaign-v21-metrics">
+            <div class="campaign21-metric purple"><b>909</b><span>Reported Form Leads</span></div>
+            <div class="campaign21-metric blue"><b>EGP 123.93K</b><span>Form-Lead Campaign Spend</span></div>
+            <div class="campaign21-metric green"><b>EGP 136.34</b><span>Weighted Cost / Form Lead</span></div>
+            <div class="campaign21-metric gold"><b>21</b><span>Form-Lead Campaigns</span></div>
+          </div>
+          <div class="campaign-v21-change"><span>Selected campaign</span><p>Bait Al Watan – Residential F13 9/4: 46 form leads from EGP 1,730.50 spend at EGP 37.62 per lead. This is one campaign, not the overall average.</p></div>
+          <button class="campaign-v21-full-btn" type="button" data-case="realestate">View Full Case Study <span>→</span></button>
+        </div>
+        <div class="campaign-chart-panel">
+          <div class="campaign-chart-head"><div><strong>Form-Lead Results</strong><span>Matching spend and lead scope · 21 campaigns</span></div><small>29 Jan–29 Oct 2026</small></div>
+          <div class="chart-highlight"><span>Reported Form Leads</span><b>909</b></div>
+          <div class="chart-stat-grid"><div><span>Form-lead campaign spend</span><b>EGP 123,932.22</b></div><div><span>Impressions · same campaigns</span><b>640,199</b></div></div>
+          <div class="chart-callout"><span>Weighted cost per form lead</span><b>EGP 136.34</b><small>Total included spend ÷ 909 reported leads</small></div>
+          <div class="chart-footnote">Source: Untitled-report.xlsx, Raw Data Report, 29 Jan–29 Oct 2026. Only Leads (form) rows are included. Custom conversions, messaging, visits, awareness and rows without a result type are excluded together with their spend. Form submissions do not establish qualified buyers, sales or revenue.</div>
+        </div>
+      </article>
+
 
       <!-- 05 K7 -->
       <article class="campaign-v21-case active" data-campaign="k7">
@@ -4923,6 +4955,17 @@ const YASSMINE_CASE_HTML=`
 </div>
 `;
 const cases={
+  realestate:{
+    k:'Real Estate · Meta Ads · Lead Forms',
+    t:'Real Estate Lead Generation — Reported Performance',
+    o:'Generate property inquiries through lead forms across Bait Al Watan, North Rehab and ZAHYA campaigns.',
+    p:'Meta Ads lead forms. Reporting period: 29 January–29 October 2026. Currency: EGP.',
+    u:'Property campaigns named Bait Al Watan, North Rehab and ZAHYA. Audience targeting and lead quality are not documented in the export.',
+    a:'Campaign names include CBO, ABO and TEST labels. The report does not document targeting, creative tests or optimization decisions; no causal improvement is claimed.',
+    r:'21 rows labeled Leads (form): 909 reported form leads, EGP 123,932.22 spend and 640,199 impressions. Weighted CPL = EGP 123,932.22 / 909 = EGP 136.34. Selected Bait Al Watan – Residential F13 9/4 campaign: 46 leads, EGP 1,730.50 spend and EGP 37.62 CPL.',
+    l:'Source: Untitled-report.xlsx, Raw Data Report. Formatted Report duplicates the same records and is not counted again. Only Leads (form) rows are included. The 12 custom-conversion results, messaging, visits, awareness and rows with no result type are excluded with their spend. Most included rows use 7-day click or 1-day view attribution; one has an unspecified setting. Form leads are not verified qualified buyers, unique people, sales or revenue. No ROAS or improvement claim is supported.',
+    shots:[]
+  },
   sherbiny:{
     k:'Medical · Egypt · Meta Ads',
     t:'Primar Clinics — Account Scale + Selected Performance',
