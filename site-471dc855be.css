@@ -3538,7 +3538,8 @@ body.paper-portfolio:before{display:none}
 .fan-intro-active nav,.fan-intro-active nav.scrolled{background:#0b0a0ff2;border-color:#ad68ff30;backdrop-filter:blur(12px)}
 .fan-intro-active .brand,.fan-intro-active .links a{color:#f7f4f0!important}.fan-intro-active .brand i{background:#7c2cff}.fan-intro-active .links a[aria-current]{background:#ad68ff20}
 .fan-intro-active .scroll-progress span{background:#7c2cff}
-.reference-edition{display:flex;justify-content:center;text-align:center;position:relative;z-index:2;margin-bottom:24px;font:900 17px/.9 'Arial Black',Arial;letter-spacing:-.04em}
+.reference-edition{display:flex;justify-content:center;text-align:center;position:relative;z-index:2;height:30.6px;margin-bottom:24px;font:900 26px/.9 Impact,'Arial Narrow','Arial Black',Arial,sans-serif;letter-spacing:-.025em}
+.reference-edition>span{position:absolute;top:34px;left:50%;transform:translateX(-50%);white-space:nowrap}
 .reference-title{height:225px;position:relative;margin:0 auto;max-width:1000px}
 .reference-accent-block{position:absolute;left:50%;top:-70px;bottom:0;width:170px;transform:translateX(-50%);background:#7c2cff}
 .reference-title h1{position:absolute;left:0;right:0;top:50%;margin:0!important;height:135px;translate:0 -50%;perspective:900px;transform:rotate(-5deg) skewX(-7deg);font:950 clamp(55px,9.8vw,128px)/1 'Arial Black',Arial,sans-serif!important;letter-spacing:-.08em!important;color:#f7f4f0!important}
@@ -3577,7 +3578,8 @@ body.paper-portfolio:before{display:none}
 @media(max-width:720px){
  .paper-portfolio .reference-hero{padding:128px 0 16px;min-height:0}
  .reference-hero>.wrap{width:calc(100% - 32px)}
- .reference-edition{font-size:12px;margin-bottom:18px}
+ .reference-edition{height:21.6px;font-size:18px;margin-bottom:18px}
+ .reference-edition>span{top:30px;transform:translateX(-50%) scaleX(.85)}
  .reference-title{height:156px;margin-top:0}
  .reference-accent-block{width:76px;top:-52px}
  .reference-title h1{font-size:11vw!important;height:84px;letter-spacing:-.075em!important}
