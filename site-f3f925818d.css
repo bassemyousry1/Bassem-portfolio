@@ -3604,7 +3604,7 @@ body.paper-portfolio.fan-portfolio header.reference-hero{background:#0b0a0f!impo
 .fan-track{top:calc(520px * var(--deck-scale) - 500px);transform-origin:50% 520px}
 .fan-compass{top:280px;transform:none;transform-origin:50% 0;z-index:0}
 .compass-pointer{transform:translateX(-50%);transform-origin:center}
-.fan-person>img{width:340%;left:-120%;top:-12px}
+.fan-person>img{width:260%;left:-80%;top:-6px}
 .fan-card.fan-person{transform:translate(var(--card-x),var(--card-y)) rotate(calc(var(--card-r) - var(--fan-swing)));will-change:transform}
 @media(max-width:720px){.fan-track{top:calc(520px * var(--deck-scale) - 500px);transform-origin:50% 520px}.fan-compass{top:280px;width:480px;height:480px}}
 
