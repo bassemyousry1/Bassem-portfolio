@@ -3540,7 +3540,7 @@ body.paper-portfolio:before{display:none}
 .fan-intro-active .scroll-progress span{background:#7c2cff}
 .reference-edition{display:flex;justify-content:center;text-align:center;position:relative;z-index:2;margin-bottom:24px;font:900 17px/.9 'Arial Black',Arial;letter-spacing:-.04em}
 .reference-title{height:225px;position:relative;margin:0 auto;max-width:1000px}
-.reference-accent-block{position:absolute;left:50%;top:0;bottom:0;width:170px;transform:translateX(-50%);background:#7c2cff}
+.reference-accent-block{position:absolute;left:50%;top:-70px;bottom:0;width:170px;transform:translateX(-50%);background:#7c2cff}
 .reference-title h1{position:absolute;left:0;right:0;top:50%;margin:0!important;height:135px;translate:0 -50%;perspective:900px;transform:rotate(-5deg) skewX(-7deg);font:950 clamp(55px,9.8vw,128px)/1 'Arial Black',Arial,sans-serif!important;letter-spacing:-.08em!important;color:#f7f4f0!important}
 .ribbon-word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;white-space:nowrap;transform-style:preserve-3d;pointer-events:none}
 .ribbon-word>span{display:inline-block;transform:translateY(-22px);transform-origin:center;will-change:transform;color:#f7f4f0;-webkit-text-stroke:1px #f7f4f0;backface-visibility:visible}
@@ -3579,7 +3579,7 @@ body.paper-portfolio:before{display:none}
  .reference-hero>.wrap{width:calc(100% - 32px)}
  .reference-edition{font-size:12px;margin-bottom:18px}
  .reference-title{height:156px;margin-top:0}
- .reference-accent-block{width:76px}
+ .reference-accent-block{width:76px;top:-52px}
  .reference-title h1{font-size:11vw!important;height:84px;letter-spacing:-.075em!important}
  .ribbon-word>span{-webkit-text-stroke:.65px #f7f4f0}
  .fan-showcase{--deck-scale:.67;height:335px;margin:18px -16px 0}
