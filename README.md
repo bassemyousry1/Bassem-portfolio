@@ -1,9 +1,7 @@
-# Bassem Yousry — Portfolio
+# Bassem Yousry Portfolio
 
-Paid media and digital marketing portfolio.
+Live: https://bassemyousry1.github.io/Bassem-portfolio/
 
-Live website: https://bassemyousry1.github.io/Bassem-portfolio/
+Optimized hero previews, full-resolution creative galleries, bundled styles/scripts and visibility-aware animation.
 
-Black and violet design, responsive layouts, twelve campaign case studies, six creative sectors, and an existing Formspree inquiry form.
-
-The version preceding this redesign is preserved on branch backup-before-portfolio-motion-2026-11-02.
+Build: node work/build-fan-experiment.cjs && node work/optimize-portfolio.cjs
