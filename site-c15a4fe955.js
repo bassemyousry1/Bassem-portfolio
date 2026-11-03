@@ -812,9 +812,11 @@ navItems.forEach(link=>{const section=document.querySelector(link.hash);if(secti
 (() => {
   'use strict';
   const projectId = 'z7vz7e0zme';
+  const measurementId = 'G-14RH05EX1C';
+  const googleEnabled = /^G-[A-Z0-9]+$/.test(measurementId);
   const local = ['localhost', '127.0.0.1', '::1', '[::1]'].includes(location.hostname);
   if (local || !/^[a-z0-9]+$/i.test(projectId)) return;
-  const storageKey = 'bassem-analytics-consent-v1';
+  const storageKey = googleEnabled ? 'bassem-analytics-consent-v2' : 'bassem-analytics-consent-v1';
   const panel = document.getElementById('analyticsConsent');
   const settings = document.getElementById('analyticsSettings');
   if (!panel || !settings) return;
@@ -822,13 +824,34 @@ navItems.forEach(link=>{const section=document.querySelector(link.hash);if(secti
   let started = false;
   let previousFocus;
   let observer;
+  const deniedGoogleConsent = {
+    analytics_storage: 'denied', ad_storage: 'denied',
+    ad_user_data: 'denied', ad_personalization: 'denied'
+  };
   const timers = new Map();
   const seen = new Set();
   const headings = new Map();
   const validCases = new Set([...document.querySelectorAll('[data-case]')].map(el => el.dataset.case));
   const validSectors = new Set([...document.querySelectorAll('[data-sector-target]')].map(el => el.dataset.sectorTarget));
   function track(name) {
-    if (enabled && typeof window.clarity === 'function') window.clarity('event', name);
+    if (!enabled) return;
+    if (typeof window.clarity === 'function') window.clarity('event', name);
+    if (googleEnabled) window.gtag('event', name);
+  }
+  function startGoogleAnalytics() {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', deniedGoogleConsent);
+    window.gtag('consent', 'update', { analytics_storage: 'granted' });
+    window.gtag('js', new Date());
+    window.gtag('config', measurementId, {
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false
+    });
+    const tag = document.createElement('script');
+    tag.async = true;
+    tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + measurementId;
+    document.head.appendChild(tag);
   }
   function preference() {
     try { return localStorage.getItem(storageKey); } catch (_) { return null; }
@@ -848,6 +871,7 @@ navItems.forEach(link=>{const section=document.querySelector(link.hash);if(secti
     script.src = 'https://www.clarity.ms/tag/' + projectId;
     document.head.appendChild(script);
     window.clarity('set', 'site_version', 'portfolio_motion');
+    if (googleEnabled) startGoogleAnalytics();
     if ('IntersectionObserver' in window) {
       observer = new IntersectionObserver(entries => entries.forEach(entry => {
         const name = headings.get(entry.target);
@@ -907,6 +931,7 @@ navItems.forEach(link=>{const section=document.querySelector(link.hash);if(secti
     observer?.disconnect();
     if (started) {
       window.clarity('consentv2', { analytics_Storage: 'denied', ad_Storage: 'denied' });
+      if (googleEnabled) window.gtag('consent', 'update', deniedGoogleConsent);
       // A reload fully unloads the recording library; the stored choice prevents restarting it.
       location.reload();
     }
