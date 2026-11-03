@@ -603,6 +603,7 @@ if(inquiryForm){
       });
 
       if(response.ok){
+        document.dispatchEvent(new Event('portfolio:inquiry-sent'));
         inquiryForm.reset();
         inquiryStatus.className='form-status success';
         inquiryStatus.textContent='Thanks your inquiry has been sent. I’ll get back to you soon.';
@@ -805,3 +806,118 @@ navItems.forEach(link=>{const section=document.querySelector(link.hash);if(secti
 })();
 
 
+
+;
+/* Public project ID is supplied by the build. Never send form values or user identifiers. */
+(() => {
+  'use strict';
+  const projectId = 'z7vz7e0zme';
+  const local = ['localhost', '127.0.0.1', '::1', '[::1]'].includes(location.hostname);
+  if (local || !/^[a-z0-9]+$/i.test(projectId)) return;
+  const storageKey = 'bassem-analytics-consent-v1';
+  const panel = document.getElementById('analyticsConsent');
+  const settings = document.getElementById('analyticsSettings');
+  if (!panel || !settings) return;
+  let enabled = false;
+  let started = false;
+  let previousFocus;
+  let observer;
+  const timers = new Map();
+  const seen = new Set();
+  const headings = new Map();
+  const validCases = new Set([...document.querySelectorAll('[data-case]')].map(el => el.dataset.case));
+  const validSectors = new Set([...document.querySelectorAll('[data-sector-target]')].map(el => el.dataset.sectorTarget));
+  function track(name) {
+    if (enabled && typeof window.clarity === 'function') window.clarity('event', name);
+  }
+  function preference() {
+    try { return localStorage.getItem(storageKey); } catch (_) { return null; }
+  }
+  function remember(value) {
+    try { localStorage.setItem(storageKey, value); } catch (_) { /* Choice still applies in this page. */ }
+  }
+  function start() {
+    enabled = true;
+    if (started) return;
+    started = true;
+    document.querySelectorAll('form').forEach(form => form.setAttribute('data-clarity-mask', 'true'));
+    window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+    window.clarity('consentv2', { analytics_Storage: 'granted', ad_Storage: 'denied' });
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.clarity.ms/tag/' + projectId;
+    document.head.appendChild(script);
+    window.clarity('set', 'site_version', 'portfolio_motion');
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(entries => entries.forEach(entry => {
+        const name = headings.get(entry.target);
+        clearTimeout(timers.get(entry.target));
+        if (!entry.isIntersecting || entry.intersectionRatio < .5 || seen.has(name) || document.hidden) return;
+        timers.set(entry.target, setTimeout(() => {
+          if (!enabled || document.hidden) return;
+          seen.add(name);
+          track('view_section_' + name);
+          observer.unobserve(entry.target);
+        }, 1000));
+      }), { threshold: [.5] });
+      document.querySelectorAll('section[id], section.featured-results').forEach(section => {
+        const heading = section.querySelector('h2, h3');
+        if (!heading) return;
+        headings.set(heading, (section.id || 'featured_results').replace(/-/g, '_'));
+        observer.observe(heading);
+      });
+    }
+    document.addEventListener('visibilitychange', () => {
+      timers.forEach(clearTimeout);
+      if (!document.hidden && enabled) headings.forEach((name, heading) => {
+        if (!seen.has(name)) { observer.unobserve(heading); observer.observe(heading); }
+      });
+    });
+    document.addEventListener('click', event => {
+      if (!enabled || !(event.target instanceof Element)) return;
+      const target = event.target.closest('a, button, [data-case], .work-shot');
+      if (!target) return;
+      const caseId = target.getAttribute('data-case');
+      if (validCases.has(caseId)) track('open_case_' + caseId);
+      const sector = target.getAttribute('data-sector-target');
+      if (validSectors.has(sector)) track('view_creatives_' + sector.replace(/-/g, '_'));
+      if (target.matches('.work-shot')) track('open_creative_image');
+      if (target.matches('.fan-person')) track('hero_about_click');
+      const href = target.getAttribute('href') || '';
+      if (href.startsWith('mailto:')) track('contact_email_click');
+      if (href.startsWith('tel:')) track('contact_phone_click');
+      if (/^https:\/\/(wa\.me|api\.whatsapp\.com)(\/|$)/i.test(href)) track('contact_whatsapp_click');
+    });
+    document.addEventListener('portfolio:inquiry-sent', () => track('inquiry_sent'));
+  }
+  function closePanel() {
+    panel.hidden = true;
+    if (previousFocus && panel.contains(document.activeElement)) previousFocus.focus();
+  }
+  panel.querySelector('[data-analytics-accept]').addEventListener('click', () => {
+    remember('accepted');
+    closePanel();
+    start();
+  });
+  panel.querySelector('[data-analytics-decline]').addEventListener('click', () => {
+    remember('declined');
+    closePanel();
+    enabled = false;
+    timers.forEach(clearTimeout);
+    observer?.disconnect();
+    if (started) {
+      window.clarity('consentv2', { analytics_Storage: 'denied', ad_Storage: 'denied' });
+      // A reload fully unloads the recording library; the stored choice prevents restarting it.
+      location.reload();
+    }
+  });
+  settings.hidden = false;
+  settings.addEventListener('click', () => {
+    previousFocus = settings;
+    panel.hidden = false;
+    panel.querySelector('[data-analytics-accept]').focus();
+  });
+  const choice = preference();
+  if (choice === 'accepted') start();
+  else if (choice !== 'declined') panel.hidden = false;
+})();
